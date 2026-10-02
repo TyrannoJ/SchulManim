@@ -69,15 +69,17 @@ class Mesopotamia(Scene):
         self.play(
             Create(numbers1),
             Create(numbers2),
-            Create(numbers3)
+            Create(numbers3),
+            run_time=5
         )
+        self.wait(2)
         self.play(
             
                 
             Create(line),
             Create(diagonal1),
             Create(diagonal2),
-            
+            run_time=3
             
         )
         
@@ -99,64 +101,77 @@ class Mesopotamia(Scene):
         calculation3.append(Typst("$= 42*60^0 + 24/(60^1) + 35/(60^2)$",font_size=37).next_to(calculation2[0],DOWN).align_to(calculation1[0],LEFT))
         calculation3.append(Typst("$= 42,426$",font_size=40).next_to(calculation2[1],DOWN).align_to(calculation1[0],LEFT))
         
-
         
-        self.play(Transform(numbers1,calculation1[0]))
-        self.play(Create(calculation1[1]))
-        self.play(Create(calculation1[2]))
-        self.play(ReplacementTransform(calculation1[2],new_numbers1))
-        self.play(FadeOut(numbers1,calculation1[1]))
+        self.play(Transform(numbers1,calculation1[0]),run_time=1)
+        
+        self.play(Create(calculation1[1]),run_time=2)
+        self.play(Create(calculation1[2]),run_time=2)
+        self.play(ReplacementTransform(calculation1[2],new_numbers1),run_time=1)
+        self.play(FadeOut(numbers1,calculation1[1]),run_time=1)
 
-        self.play(Transform(numbers2,calculation2[0]))
-        self.play(Create(calculation2[1]))
-        self.play(Create(calculation2[2]))
-        self.play(ReplacementTransform(calculation2[2],new_numbers2))
-        self.play(FadeOut(numbers2,calculation2[1]))
+        self.play(Transform(numbers2,calculation2[0]),run_time=1)
+        self.wait(1)
+        self.play(Create(calculation2[1]),run_time=4)
+        self.play(Create(calculation2[2]),run_time=2)
+        self.wait(1)
+        self.play(ReplacementTransform(calculation2[2],new_numbers2),run_time=1)
+        self.play(FadeOut(numbers2,calculation2[1]),run_time=1)
 
-        self.play(Transform(numbers3,calculation3[0]))
-        self.play(Create(calculation3[1]))
-        self.play(Create(calculation3[2]))
-        self.play(ReplacementTransform(calculation3[2],new_numbers3))
-        self.play(FadeOut(numbers3,calculation3[1]))
+        self.play(Transform(numbers3,calculation3[0]),run_time=1)
+        self.wait(1)
+        self.play(Create(calculation3[1]),run_time=3)
+        self.play(Create(calculation3[2]),run_time=2)
+        self.wait(1)
+        self.play(ReplacementTransform(calculation3[2],new_numbers3),run_time=1)
+        self.play(FadeOut(numbers3,calculation3[1]),run_time=1)
 
         
         self.play(
             new_numbers1.animate.set_opacity(0.15),
             new_numbers2.animate.set_opacity(0.15),
             new_numbers3.animate.set_opacity(0.15),
-            FadeOut(diagonal2)
+            FadeOut(diagonal2),
+            run_time=3
         )
         
         
-                    
-        
+        self.wait(3)
+        self.play(
+            Create(arc),
+            Create(point),
+            run_time=2
+        )
         self.play(
             Create(kathete1),
             Create(kathete2),
-            Create(hypotenuse),
-            Create(arc),
-            Create(point)
+            run_time=2
+            
         )
+        self.play(
+            Create(hypotenuse), 
+            run_time=2
+        )
+        self.wait(4)
         title=Typst("Satz des Pythagoras",font_size=60).to_corner(UL)
         formula1=Typst("$d^2 =$",font_size=50).next_to(title,DOWN).align_to(title,LEFT)
         formula2=Typst("$s^2 +$",font_size=50).next_to(formula1,RIGHT)
         formula3=Typst("$s^2$",font_size=50).next_to(formula2,RIGHT)
         self.play(Write(title))
         self.play(
-            TransformFromCopy(hypotenuse,formula1),
-            
-            
+            TransformFromCopy(hypotenuse,formula1),run_time=1
         )
-        self.play(TransformFromCopy(kathete1,formula2))
-        self.play(TransformFromCopy(kathete2,formula3))
+        self.wait(1)
+        self.play(TransformFromCopy(kathete1,formula2),run_time=1)
+        self.play(TransformFromCopy(kathete2,formula3),run_time=1)
+        self.wait(2)
         formula4=Typst("$d^2 = 2 * s^2$").next_to(formula1,DOWN).align_to(title,LEFT)
         formula5=Typst("$d = sqrt(2 * s^2)$").next_to(formula4,DOWN).align_to(title,LEFT)
         formula6=Typst("$d = sqrt(2) * s$").next_to(formula5,DOWN).align_to(title,LEFT)
         formula7=Typst("$sqrt(2) * s= d$").to_corner(UL).align_to(title,LEFT)
-        self.play(Write(formula4))
-        self.play(Write(formula5))
-        self.play(Write(formula6))
-        
+        self.play(Write(formula4),run_time=2)
+        self.play(Write(formula5),run_time=2)
+        self.play(Write(formula6),run_time=2)
+        self.wait(2)
         self.play(
             FadeOut(
                 title,
@@ -166,11 +181,14 @@ class Mesopotamia(Scene):
                 formula4,
                 formula5,
             ),
-            Transform(formula6,formula7)
+            Transform(formula6,formula7),
+            run_time=2
         )
+        self.wait(2)
         formula8=Typst("$ s = 30 $").next_to(formula7,DOWN).align_to(title,LEFT)
         formula9=Typst("$ sqrt(2) approx 1,4142129 $").next_to(formula8,DOWN).align_to(title,LEFT)
         formula10=Typst("$1,4142129 *30 approx 42,426$").next_to(formula9,DOWN).align_to(title,LEFT)
+        formula11=Typst("$sqrt(2) * s= d$").next_to(formula10,DOWN).align_to(title,LEFT)
         self.play(
             Write(formula8[0:2]),
             
@@ -187,32 +205,42 @@ class Mesopotamia(Scene):
 
         self.play(
             Write(formula9[0:4]),
-            #new_numbers1.animate.set_opacity(0.15),
+            #new_numbers1.animate.set_ty(0.15),opaci
             
         )
         self.play(
             new_numbers2.animate.set_opacity(1),
         )
         self.play(
-            Indicate(new_numbers2)
+            Indicate(new_numbers2),
+            run_time=3
         )
         self.play(
             TransformFromCopy(new_numbers2,formula9[4:13])
         )
+        
+        self.wait(3)
         self.play(
-            Write(formula10[0:13])
+            Write(formula10[0:13]),
+            run_time=3
         )
         
         self.play(
             Write(formula10[13:19]),
-            new_numbers3.animate.set_opacity(1)
+            new_numbers3.animate.set_opacity(1),
+            run_time=2
         )
         
         self.play(
             Indicate(formula10[13:19]),
-            Indicate(new_numbers3)
+            Indicate(new_numbers3),
+            run_time=3
         )
-        
+
+        numbers1.set_opacity(0)
+        numbers2.set_opacity(0)
+        numbers3.set_opacity(0)
+        diagonal2.set_opacity(0)
         self.play(
             FadeOut(
                 formula8,
@@ -221,7 +249,8 @@ class Mesopotamia(Scene):
                 formula10,
             ),
             picture.animate.shift(3*LEFT),
-            picture2.animate.shift(3*LEFT)
+            picture2.animate.shift(3*LEFT),
+            run_time=2
         )
         self.play(
             FadeOut(
@@ -232,7 +261,8 @@ class Mesopotamia(Scene):
                 point
             ),
             new_numbers2.animate.shift(3*UP+3*LEFT).rotate(math.radians(-5)),
-            new_numbers3.animate.shift(RIGHT+UP*0.5).rotate(math.radians(-15))
+            new_numbers3.animate.shift(RIGHT+UP*0.5).rotate(math.radians(-15)),
+            run_time=3
         )
 
 
