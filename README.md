@@ -1,6 +1,6 @@
 # Manim explain videos 
 
-Hello this is a project to show manim videos I did for school, everything is in German as I'm from Germany
+Hello this is a project to show manim videos I did for school, everything is in German as I'm from Germany. Look at the videos [here](https://tyrannoj.github.io/SchulManim/)
 
 ## What is in here?
 
